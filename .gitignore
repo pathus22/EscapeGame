@@ -1,5 +1,5 @@
 ##################################################
-#		UNREAL GENERATED FILES	 	 		     #
+#		UNREAL GENERATED FILES	 	 #
 ##################################################
 TheEscape/Content/StarterContent/
 */Intermediate
@@ -8,6 +8,8 @@ TheEscape/Content/StarterContent/
 */DerivedDataCache
 
 ###################################################
-#		VISUAL STUDIO IGNORED		  			  #
+#		VISUAL STUDIO IGNORED		  #
 ###################################################
 *.VC.db
+*.suo
+*.ipch

@@ -2,6 +2,7 @@
 
 #include "OpenDoor.h"
 #include "GameFramework/Actor.h"
+#include "Components/StaticMeshComponent.h"
 #include "Engine/World.h"
 
 
@@ -19,7 +20,6 @@ UOpenDoor::UOpenDoor()
 void UOpenDoor::BeginPlay()
 {
 	Super::BeginPlay();
-	ActorThatOpensDoor = GetWorld()->GetFirstPlayerController()->GetPawn();
 }
 
 void UOpenDoor::OnOverlap(AActor * OtherActor)
@@ -46,7 +46,8 @@ void UOpenDoor::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompon
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 	//UE_LOG(LogTemp, Warning, TEXT("TIME: %f"), CloseTime);
 	CloseTime += GetWorld()->GetDeltaSeconds();
-	if (PressurePlate->IsOverlappingActor(ActorThatOpensDoor))
+	TotalMass = GetOverlappingActorsMass();
+	if (TotalMass > 81.0f)
 	{
 		CloseTime = 0.0f;
 		OpenDoor();
@@ -55,5 +56,19 @@ void UOpenDoor::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompon
 	{
 		CloseDoor();
 	}
+}
+
+float UOpenDoor::GetOverlappingActorsMass()
+{
+	float fActualTotalMass = 0.0f;
+	PressurePlate->GetOverlappingActors(ActorsOverlapping);
 	
+	for (INT32 i = 0; i < ActorsOverlapping.Num(); i++)
+	{
+		if (ActorsOverlapping[i] != nullptr)
+		{
+			fActualTotalMass += ActorsOverlapping[i]->GetRootPrimitiveComponent()->GetMass();
+		}
+	}
+	return fActualTotalMass;
 }

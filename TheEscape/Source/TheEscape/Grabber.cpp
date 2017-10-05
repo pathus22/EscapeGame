@@ -4,20 +4,13 @@
 #include "Engine/World.h"
 #include "DrawDebugHelpers.h"
 #include "Components/PrimitiveComponent.h"
-
 #define OUT
 
-// Sets default values for this component's properties
 UGrabber::UGrabber()
 {
-	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
-	// off to improve performance if you don't need them.
 	PrimaryComponentTick.bCanEverTick = true;
-	// ...
 }
 
-
-// Called when the game starts
 void UGrabber::BeginPlay()
 {
 	Super::BeginPlay();
@@ -26,8 +19,6 @@ void UGrabber::BeginPlay()
 	MapInputs();
 }
 
-
-// Called every frame
 void UGrabber::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
@@ -43,18 +34,15 @@ void UGrabber::Grab()
 {
 	CalculateRayCast();
 	UPrimitiveComponent* ComponentToGrab = hit.GetComponent();
-	//UE_LOG(LogTemp, Warning, TEXT("Im Grabbing!"));
 	if (ActorHitted != nullptr)
-	{
 		pyHandle->GrabComponent(ComponentToGrab, NAME_None, ComponentToGrab->GetOwner()->GetActorLocation(), true);
-	}
+	
 }
 ///End of Action of Grab
 void UGrabber::Release()
 {
 	ActorHitted = nullptr;
 	pyHandle->ReleaseComponent();
-	//UE_LOG(LogTemp, Warning, TEXT("Im Releasing!"));
 }
 
 

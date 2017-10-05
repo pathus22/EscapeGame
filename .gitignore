@@ -13,3 +13,5 @@ TheEscape/Content/StarterContent/
 *.VC.db
 *.suo
 *.ipch
+*.VC.opendb
+TheEscape/.vs/TheEscape/v15/Solution.VC.db-shm

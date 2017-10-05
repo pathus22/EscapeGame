@@ -4,6 +4,8 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
+#include "PhysicsEngine/PhysicsHandleComponent.h"
+#include "Components/InputComponent.h"
 #include "Grabber.generated.h"
 
 
@@ -28,8 +30,18 @@ private:
 	FVector viewPoint;
 	FRotator viewRotation;
 	FVector EndOfView;
-	float fMaxReach = 500.0f;
+	float fMaxReach = 100.0f;
 	FHitResult hit;
 	FCollisionQueryParams ColQueryParams = FCollisionQueryParams(FName(TEXT("")), false, GetOwner());
 	AActor* ActorHitted;
+	UPhysicsHandleComponent* pyHandle = nullptr;
+	UInputComponent* playerInputComponent;
+	void Grab();
+	void Release();
+	void CalculateRayCast();
+	void MapInputs();
+	void FindPhysicHandler();
+	void FindPlayerController();
+	void CalculateEndOfView();
+		
 };
